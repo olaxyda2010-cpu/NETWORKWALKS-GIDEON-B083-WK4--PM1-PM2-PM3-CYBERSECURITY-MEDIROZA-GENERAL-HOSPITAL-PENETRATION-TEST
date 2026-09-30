@@ -1,0 +1,292 @@
+# NETWORKWALKS-GIDEON-B083-WK4--PM1-PM2-PM3-CYBERSECURITY-MEDIROZA-GENERAL-HOSPITAL-PENETRATION-TEST
+###
+## 👤 Lab Information
+
+| **Field** | **Details** |
+|---|---|
+| **Pentester Name**<br>*(Cybersecurity Professional)* | **OYEWALE OLAOLUWA GIDEON** |
+| **Program/Batch** | B083-Networkwalks |
+| **Date** | 30 SEPTEMBER 2026 |
+| **Modules Completed** | W4-PM1 (Attack the website and retrieve 3 confidential patient PDF lab reports.)<br>W4-PM2 (Crack the encryption on all 3 retrieved files.)<br>W4-PM3 (Write a professional penetration testing report for the client.) |
+| **Client/Target** | 1. Mediroza General Hospital (secured written permission already)<br>2. https://medirozahospital.com |
+| **Permission secured from client?** | **Yes** |
+| **Phases Covered** | **All Phases** |
+###
+
+# Penetration Testing Report
+
+## 1. Executive Summary
+
+### 1.1 Engagement Overview
+
+| Item | Details |
+|---|---|
+| **Client** | Mediroza General Hospital |
+| **Target** | `https://medirozahospital.com` |
+| **Assessment Type** | Black-box Penetration Test & Vulnerability Assessment |
+| **Scope** | Target domain only |
+| **Social Engineering** | Out of scope |
+| **Denial of Service** | Out of scope |
+| **Authorization** | Written authorization granted |
+| **Duration** | 5 days |
+
+The assessment followed the four milestones defined in the **NetworkWalks Week 4 project**:
+
+- **M1 — Initial Access:** Identify an application weakness and retrieve three confidential patient PDF lab reports.
+- **M2 — Data Extraction:** Assess and recover the contents of the three encrypted PDF reports.
+- **M3 — Critical Data Exposure:** Identify the exposure leading to staff salary and shareholder information.
+- **M4 — Penetration Testing Report:** Consolidate the assessment results into a professional security report.
+
+The assessment identified multiple security weaknesses affecting:
+
+- Authentication
+- Access control
+- Document protection
+- Directory configuration
+- Sensitive data exposure
+
+### Key Findings
+
+The two most significant findings identified during the assessment were:
+
+| # | Finding | Severity |
+|---|---|---|
+| 1 | **SQL Injection resulting in authentication bypass** | 🔴 **Critical** |
+| 2 | **Publicly accessible historical database backup** | 🔴 **Critical** |
+
+
+
+# 2. Scope and Rules of Engagement
+
+The engagement was defined as a **full black-box penetration test** against the target web infrastructure. Testing activities were restricted to the authorized target domain.
+
+## 2.1 In Scope
+
+- `https://medirozahospital.com`
+
+## 2.2 Out of Scope
+
+- Social engineering
+- Denial-of-service (DoS/DDoS) testing
+- Testing systems outside the authorized target domain
+- Testing unrelated third-party infrastructure
+
+## 2.3 Rules of Engagement
+
+- Testing was conducted against the authorized target only.
+- No intentional denial-of-service activity was performed.
+- Social engineering activities were not conducted.
+- Third-party systems and infrastructure were excluded from testing.
+- Testing activities were performed under written authorization.
+
+**Authorization:** Written authorization was provided for the security assessment.
+
+
+
+# 3. Methodology
+
+The assessment followed a standard **black-box penetration-testing workflow** broadly aligned with the **Penetration Testing Execution Standard (PTES)** and the **OWASP Web Security Testing Guide**.
+
+## 3.1 Assessment Workflow
+
+Reconnaissance
+      ↓
+Application Mapping
+      ↓
+Authentication & Input Analysis
+      ↓
+Controlled Exploitation
+      ↓
+Data Recovery
+      ↓
+Risk Assessment
+      ↓
+Reporting & Remediation
+
+## 3.2 Tools Used
+
+- `curl`
+- Linux command-line utilities
+- PDF hash-extraction utilities
+- Dictionary-based password recovery tools
+
+
+# 4. Findings Summary
+
+| ID | Finding | Severity | Affected Area |
+|---|---|---|---|
+| F-01 | SQL Injection / Authentication Bypass | **Critical** | `/patient/login.php` |
+| F-02 | Exposed Historical Database Backup | **Critical** | `/old/` |
+| F-03 | Weak Passwords Protecting Patient PDF Reports | **High** | Patient reports |
+| F-04 | Directory Listing Enabled | **High** | `/staff/`, `/old/` |
+| F-05 | Username Enumeration | **Medium** | `/patient/login.php` |
+
+##2🛠️ Tools Used
+
+The table below lists the tools used in this report and their respective purposes.
+
+| **Tool** | **Purpose** |
+|---|---|
+| **Kali Linux & Windows** | Operating systems used for reconnaissance and network-scanning activities |
+| **WHOIS** | Retrieve domain registration information such as ownership details, registration dates, and name servers |
+| **WhatWeb** | Identify web technologies, servers, CMS platforms, plugins, and related information |
+| **nslookup** | Resolve domain names to their corresponding IP addresses using DNS |
+| **curl -I** | Retrieve and examine HTTP response headers from the target website |
+| **WAFW00F** | Identify whether a Web Application Firewall (WAF) is protecting the website |
+| **dnsrecon** | Enumerate DNS records including NS, MX, SPF, TXT, and SRV records |
+| **Zenmap (Nmap GUI)** | Discover live hosts, open ports, and network information on the local subnet |
+| **Windows CMD** | Identify local IP address and MAC address information |
+
+####
+# 3. Activities Performed
+
+## 3.1 Footprinting & Reconnaissance
+
+During the reconnaissance stage, I conducted a passive assessment of the **networkwalks.com** domain using six Kali Linux tools: **WHOIS, WhatWeb, Nslookup, cURL, Wafw00f, and DNSRecon**. Each tool was used to examine a different aspect of the target's publicly accessible infrastructure.
+I started with 
+##
+# WHOIS 
+**WHOIS** is used to gather publicly available domain registration information and determine the name servers associated with the domain. This provided useful information about the domain's registration and DNS infrastructure.
+
+###
+<img width="1366" height="640" alt="image" src="https://github.com/user-attachments/assets/1a225842-0ff1-45c5-8c75-7c1fa64053e6" />
+<img width="1045" height="620" alt="image" src="https://github.com/user-attachments/assets/634d76eb-6261-45d3-a35c-354883025efd" />
+<img width="1061" height="656" alt="image" src="https://github.com/user-attachments/assets/6e9e0a2d-c699-47ab-86f0-4129e4ca9a5e" />
+
+
+
+###
+# WHATWEB
+Next, I used **WhatWeb** to fingerprint the technologies powering the website. The results revealed the use of **WordPress 7.0.4** and **WP Download Manager 3.3.58**, as well as other technology-related information exposed by the website.
+
+<img width="1366" height="368" alt="image" src="https://github.com/user-attachments/assets/9af390d9-3985-4f04-a8ea-f5804e7b579f" />
+
+###
+# NSLOOKUP
+I then performed a DNS lookup with **Nslookup** to determine the IP address associated with the domain. The result resolved **networkwalks.com** to **192.232.216.135**
+<img width="1366" height="294" alt="image" src="https://github.com/user-attachments/assets/6b10eb93-f232-4e84-babe-fdb6851d8886" />
+
+
+###
+
+# CURL -I
+
+I then used **cURL** with the `-I` option to examine the website's HTTP response headers. The output revealed additional information about the web application, including the presence of the WordPress REST API endpoint `/wp-json/`.
+<img width="1353" height="259" alt="curl -i" src="https://github.com/user-attachments/assets/28322a83-8e94-40e2-983b-58a5e084e11d" />
+
+
+
+
+###
+# WAFW00F
+Next, I ran **Wafw00f** to identify whether a Web Application Firewall (WAF) was deployed in front of the website. The results indicated the presence of **ModSecurity (SpiderLabs)**.
+<img width="1366" height="544" alt="image" src="https://github.com/user-attachments/assets/7a88526b-f7e0-40b0-a643-af209ccfca04" />
+
+
+
+###
+# DNSRECON
+Finally, I used **DNSRecon** to gather available DNS information associated with the domain. The enumeration revealed details related to **name servers, mail servers, SPF/TXT records, service records, and DNS software**.
+<img width="1366" height="414" alt="image" src="https://github.com/user-attachments/assets/d4bb62c1-4821-4b40-b956-26b9a65252d1" />
+
+
+These findings provided additional visibility into the target's **web-server configuration, security controls, and DNS infrastructure**, contributing to the overall reconnaissance profile.
+
+###
+## 3.2 Network Scanning with Zenmap
+
+The second practical activity focused on **network discovery and host identification using Zenmap** within my local network. The objective was to determine the local IP address and subnet, identify active devices, obtain their IP and MAC addresses, and visualize the discovered hosts using Zenmap's network topology feature.
+
+
+
+I began by running the `ipconfig` command on Windows cmd to obtain the computer's local IP address and determine the applicable LAN subnet.
+
+<img width="971" height="500" alt="image" src="https://github.com/user-attachments/assets/fd6aecb4-dd65-480b-975d-9e388532452e" />
+
+
+
+
+ I then configured Zenmap with the identified subnet which is **192.168.56.1** and performed a **Ping Scan** to detect devices that were actively responding on the network. The command nmap -sn -PR 192.168.1.0/24
+
+The practical exercise identified the following live hosts:
+
+- `192.168.1.1`
+- `192.168.1.193`
+- `192.168.1.56`
+-
+
+The scan also returned corresponding **MAC address information** for the discovered devices.
+<img width="1356" height="498" alt="image" src="https://github.com/user-attachments/assets/313a9b4c-f327-4eb7-8c41-9fac69d01213" />
+
+
+After completing the host discovery scan, I accessed the **Topology** tab in Zenmap to visualize the network structure. I enabled the topology legend and exported the resulting network map as a **PDF**, as required by the practical exercise.
+<img width="1353" height="588" alt="image" src="https://github.com/user-attachments/assets/d3f91b2d-f5ad-4260-b6fd-0473bec554d6" />
+
+
+###
+
+
+
+## 4. Risk Analysis / Impact
+
+The reconnaissance and network-scanning exercises produced several findings that may have security implications. The observations below summarize the identified exposures and their potential impact.
+
+| # | Risk / Finding | Evidence / Observation | Potential Impact | Risk Level |
+|---|---|---|---|---|
+| 1 | **Web technology details exposed** | WhatWeb detected **WordPress** and **WP Download Manager** on the website. | Technology and version details could help an attacker identify components that may require additional security assessment. | 🟠 **Medium** |
+| 2 | **Web server IP address exposed** | Nslookup mapped the domain to **192.232.216.135**. | The information provides visibility into the network location associated with the web service. | 🟡 **Low** |
+| 3 | **HTTP response information disclosed** | cURL returned HTTP headers and revealed the `/wp-json/` endpoint. | The exposed information may support application fingerprinting and additional reconnaissance. | 🟡 **Low** |
+| 4 | **WAF technology detected** | Wafw00f identified **ModSecurity (SpiderLabs)** as the deployed WAF. | Identifying the security technology provides information about the web application's defensive infrastructure. | 🟡 **Low** |
+| 5 | **DNS infrastructure exposed** | DNSRecon returned DNS, mail-server, and service-related records. | The information could be combined with other findings to develop a broader picture of the target infrastructure. | 🟠 **Medium** |
+| 6 | **Multiple active hosts discovered** | Zenmap detected multiple responsive devices on the local network. | Unidentified or unauthorized devices could increase the potential attack surface of the local network. | 🟠 **Medium** |
+
+### Risk Level Classification
+
+- 🟡 **Low:** Limited exposure with relatively low immediate security impact.
+- 🟠 **Medium:** Information that could contribute to further reconnaissance or increase exposure.
+- 🔴 **High:** Findings that could present a significant security risk and require prompt attention.
+
+###
+
+## 5. Security Recommendations
+
+- Keep WordPress, plugins, themes, and other web technologies regularly updated.
+- Minimize unnecessary technical information exposed through HTTP headers and public endpoints.
+- Review and secure DNS records and remove outdated or unnecessary entries.
+- Maintain and regularly update WAF security rules and configurations.
+- Monitor the local network for unknown or unauthorized devices.
+- Conduct periodic vulnerability assessments and network security scans.
+- Apply strong access controls to administrative and sensitive services.
+- Enable security logging and monitor for suspicious network activity.
+- Protect sensitive configuration and system information from public exposure.
+- Document findings and verify that identified security issues are properly addressed.
+
+
+## 6. Conclusion
+
+
+This practical exercise provided valuable hands-on experience in the **reconnaissance, footprinting, network discovery, and initial security assessment phases of penetration testing**. The activities demonstrated how security professionals can systematically gather information about a target and use the collected data to develop an initial understanding of its digital infrastructure.
+
+During the **footprinting and reconnaissance phase**, I used several Kali Linux tools, including **WHOIS, WhatWeb, Nslookup, cURL, Wafw00f, and DNSRecon**. Each tool provided a different perspective of the target environment. The assessment revealed information relating to domain registration, DNS infrastructure, the associated IP address, web technologies, HTTP response headers, publicly accessible endpoints, and the presence of a Web Application Firewall. Combining these results demonstrated how individual pieces of publicly available information can contribute to a broader understanding of a target's infrastructure.
+
+The **network-scanning exercise** provided practical experience using **Zenmap** to identify active hosts within an authorized local network. By first determining the local IP address and subnet using Windows networking commands, I was able to configure Zenmap and perform host discovery. The scan demonstrated how network-scanning tools can identify responsive devices and provide information such as IP and MAC addresses. The Zenmap topology feature also provided a visual representation of the discovered network environment.
+
+The exercises highlighted the importance of conducting reconnaissance and scanning in a **structured, controlled, and authorized manner**. Information gathered during these stages can help security professionals understand the attack surface, identify areas requiring further investigation, and prioritize appropriate security controls. At the same time, the findings demonstrate why organizations should minimize unnecessary information exposure and maintain visibility over devices and services operating within their networks.
+
+From a learning perspective, this practical strengthened my ability to work with **Kali Linux, Windows networking tools, Zenmap, Nmap-based scanning, DNS enumeration, web technology fingerprinting, and basic security analysis**. It also improved my understanding of how reconnaissance findings can be documented, interpreted, and translated into potential security risks and recommendations.
+
+Overall, the project provided a practical foundation for progressing into more advanced stages of security assessment, including **service enumeration, vulnerability identification, exploitation testing, and security validation**. All activities documented in this report were conducted within controlled environments and against systems for which appropriate authorization was available.
+
+
+###
+**👤 Author**
+
+**Oyewale Olaoluwa Gideon**  
+Cybersecurity Intern | B083
+LinkedIn: www.linkedin.com/in/oyewale-olaouwa-60b252bb
+
+---
+
+**📌 Project Information**
+
+**Program Name:** Cybersecurity Internship Program at Networkwalks | **Week:** 02 | **Project:** Footprinting & Network Scanning Phases  | **Repository:** GitHub
